@@ -27,7 +27,6 @@ resources:
       get-segment-details: get /discovery/v2/classifications/segments/{id}
       get-subgenre-details: get /discovery/v2/classifications/subgenres/{id}
       get-classification-details: get /discovery/v2/classifications/{id}
-      event-search: get /discovery/v2/events
       get-event-details: get /discovery/v2/events/{id}
       get-event-images: get /discovery/v2/events/{id}/images
       find-suggest: get /discovery/v2/suggest
