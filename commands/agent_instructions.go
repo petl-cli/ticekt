@@ -145,16 +145,6 @@ Prefer skills over this file once you know which group(s) you need — they're s
     --include-licensed-content (string) Yes if you want to display licensed content [yes, no]
     --include-spellcheck (string) yes, to include spell check suggestions in the response. [yes, no]
 
-  discovery-api v2 get-attraction-details
-  Description : Get Attraction Details
-  HTTP        : GET /discovery/v2/attractions/{id}
-  Safe        : true | Idempotent: true | Reversible: true | Impact: low
-  Auth        : true
-  Flags:
-    --id* (string) ID of the attraction
-    --locale (string) The locale in ISO code format. Multiple comma-separated values can be provided. When omitting the country part of the code (e.g. only 'en' or 'fr') then the first matching locale is used. When using a '*' it matches all locales. '*' can only be used at the end (e.g. 'en-us,en,*') 
-    --include-licensed-content (string) True if you want to display licensed content [yes, no]
-
   discovery-api v2 get-classification-details
   Description : Get Classification Details
   HTTP        : GET /discovery/v2/classifications/{id}
