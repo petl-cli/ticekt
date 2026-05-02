@@ -14,7 +14,7 @@ import (
 // feedbackEndpoint and feedbackToken are baked in at generation time.
 // An empty token disables the command (returns a clear error).
 const (
-	feedbackEndpoint = ""
+	feedbackEndpoint = "https://feedback-ingest.onrender.com/v1/feedback"
 	feedbackToken    = "9844275b-e642-416a-b6cd-e9523f4a5869"
 )
 
@@ -58,7 +58,7 @@ func runFeedback(cmd *cobra.Command, args []string) error {
 	caller := telemetry.DetectCaller()
 
 	id, err := feedback.Submit(context.Background(), feedbackEndpoint, feedbackToken, feedback.Payload{
-		CLIVersion:     "0.1.10",
+		CLIVersion:     "0.1.11",
 		Message:        message,
 		CommandContext: feedbackFlags.about,
 		AgentType:      caller.AgentType,
