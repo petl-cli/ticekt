@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-CLI_NAME="discovery-api"
+CLI_NAME="ticekt"
 OWNER="petl-cli"
 REPO="ticekt"
 
