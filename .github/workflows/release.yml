@@ -34,6 +34,9 @@ jobs:
           go-version: 'stable'
           cache: false
 
+      - name: Tidy modules
+        run: go mod tidy
+
       - name: Build
         env:
           GOOS: ${{ matrix.goos }}
