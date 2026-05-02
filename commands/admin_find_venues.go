@@ -10,13 +10,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var v2FindVenuesCmd = &cobra.Command{
+var adminFindVenuesCmd = &cobra.Command{
 	Use:   "find-venues",
 	Short: "Venue Search",
-	RunE:  withTelemetry(runV2FindVenues),
+	RunE:  withTelemetry(runAdminFindVenues),
 }
 
-var v2FindVenuesFlags struct {
+var adminFindVenuesFlags struct {
 	sort                   string
 	stateCode              string
 	countryCode            string
@@ -36,27 +36,27 @@ var v2FindVenuesFlags struct {
 }
 
 func init() {
-	v2FindVenuesCmd.Flags().StringVar(&v2FindVenuesFlags.sort, "sort", "", "Sorting order of the search result. Allowable Values: 'name,asc', 'name,desc', 'relevance,asc', 'relevance,desc', 'distance,asc', 'distance,desc'")
-	v2FindVenuesCmd.Flags().StringVar(&v2FindVenuesFlags.stateCode, "state-code", "", "Filter venues by state / province code")
-	v2FindVenuesCmd.Flags().StringVar(&v2FindVenuesFlags.countryCode, "country-code", "", "Filter venues by country code")
-	v2FindVenuesCmd.Flags().StringVar(&v2FindVenuesFlags.latlong, "latlong", "", "Filter events by latitude and longitude, this filter is deprecated and maybe removed in a future release, please use geoPoint instead")
-	v2FindVenuesCmd.Flags().StringVar(&v2FindVenuesFlags.radius, "radius", "", "Radius of the area in which we want to search for events.")
-	v2FindVenuesCmd.Flags().StringVar(&v2FindVenuesFlags.unit, "unit", "", "Unit of the radius")
-	v2FindVenuesCmd.Flags().StringVar(&v2FindVenuesFlags.geoPoint, "geo-point", "", "filter events by geoHash")
-	v2FindVenuesCmd.Flags().StringVar(&v2FindVenuesFlags.keyword, "keyword", "", "Keyword to search on")
-	v2FindVenuesCmd.Flags().StringVar(&v2FindVenuesFlags.id, "id", "", "Filter entities by its id")
-	v2FindVenuesCmd.Flags().StringVar(&v2FindVenuesFlags.source, "source", "", "Filter entities by its source name")
-	v2FindVenuesCmd.Flags().StringVar(&v2FindVenuesFlags.includeTest, "include-test", "", "True if you want to have entities flag as test in the response. Only, if you only wanted test entities")
-	v2FindVenuesCmd.Flags().StringVar(&v2FindVenuesFlags.page, "page", "", "Page number")
-	v2FindVenuesCmd.Flags().StringVar(&v2FindVenuesFlags.size, "size", "", "Page size of the response")
-	v2FindVenuesCmd.Flags().StringVar(&v2FindVenuesFlags.locale, "locale", "", "The locale in ISO code format. Multiple comma-separated values can be provided. When omitting the country part of the code (e.g. only 'en' or 'fr') then the first matching locale is used. When using a '*' it matches all locales. '*' can only be used at the end (e.g. 'en-us,en,*') ")
-	v2FindVenuesCmd.Flags().StringVar(&v2FindVenuesFlags.includeLicensedContent, "include-licensed-content", "", "Yes if you want to display licensed content")
-	v2FindVenuesCmd.Flags().StringVar(&v2FindVenuesFlags.includeSpellcheck, "include-spellcheck", "", "yes, to include spell check suggestions in the response.")
+	adminFindVenuesCmd.Flags().StringVar(&adminFindVenuesFlags.sort, "sort", "", "Sorting order of the search result. Allowable Values: 'name,asc', 'name,desc', 'relevance,asc', 'relevance,desc', 'distance,asc', 'distance,desc'")
+	adminFindVenuesCmd.Flags().StringVar(&adminFindVenuesFlags.stateCode, "state-code", "", "Filter venues by state / province code")
+	adminFindVenuesCmd.Flags().StringVar(&adminFindVenuesFlags.countryCode, "country-code", "", "Filter venues by country code")
+	adminFindVenuesCmd.Flags().StringVar(&adminFindVenuesFlags.latlong, "latlong", "", "Filter events by latitude and longitude, this filter is deprecated and maybe removed in a future release, please use geoPoint instead")
+	adminFindVenuesCmd.Flags().StringVar(&adminFindVenuesFlags.radius, "radius", "", "Radius of the area in which we want to search for events.")
+	adminFindVenuesCmd.Flags().StringVar(&adminFindVenuesFlags.unit, "unit", "", "Unit of the radius")
+	adminFindVenuesCmd.Flags().StringVar(&adminFindVenuesFlags.geoPoint, "geo-point", "", "filter events by geoHash")
+	adminFindVenuesCmd.Flags().StringVar(&adminFindVenuesFlags.keyword, "keyword", "", "Keyword to search on")
+	adminFindVenuesCmd.Flags().StringVar(&adminFindVenuesFlags.id, "id", "", "Filter entities by its id")
+	adminFindVenuesCmd.Flags().StringVar(&adminFindVenuesFlags.source, "source", "", "Filter entities by its source name")
+	adminFindVenuesCmd.Flags().StringVar(&adminFindVenuesFlags.includeTest, "include-test", "", "True if you want to have entities flag as test in the response. Only, if you only wanted test entities")
+	adminFindVenuesCmd.Flags().StringVar(&adminFindVenuesFlags.page, "page", "", "Page number")
+	adminFindVenuesCmd.Flags().StringVar(&adminFindVenuesFlags.size, "size", "", "Page size of the response")
+	adminFindVenuesCmd.Flags().StringVar(&adminFindVenuesFlags.locale, "locale", "", "The locale in ISO code format. Multiple comma-separated values can be provided. When omitting the country part of the code (e.g. only 'en' or 'fr') then the first matching locale is used. When using a '*' it matches all locales. '*' can only be used at the end (e.g. 'en-us,en,*') ")
+	adminFindVenuesCmd.Flags().StringVar(&adminFindVenuesFlags.includeLicensedContent, "include-licensed-content", "", "Yes if you want to display licensed content")
+	adminFindVenuesCmd.Flags().StringVar(&adminFindVenuesFlags.includeSpellcheck, "include-spellcheck", "", "yes, to include spell check suggestions in the response.")
 
-	v2Cmd.AddCommand(v2FindVenuesCmd)
+	adminCmd.AddCommand(adminFindVenuesCmd)
 }
 
-func runV2FindVenues(cmd *cobra.Command, args []string) error {
+func runAdminFindVenues(cmd *cobra.Command, args []string) error {
 	// --schema: print full input/output type contract without making any network call.
 	if rootFlags.schema {
 		type flagSchema struct {
@@ -248,52 +248,52 @@ func runV2FindVenues(cmd *cobra.Command, args []string) error {
 
 	// Query parameters
 	if cmd.Flags().Changed("sort") {
-		req.QueryParams["sort"] = fmt.Sprintf("%v", v2FindVenuesFlags.sort)
+		req.QueryParams["sort"] = fmt.Sprintf("%v", adminFindVenuesFlags.sort)
 	}
 	if cmd.Flags().Changed("state-code") {
-		req.QueryParams["stateCode"] = fmt.Sprintf("%v", v2FindVenuesFlags.stateCode)
+		req.QueryParams["stateCode"] = fmt.Sprintf("%v", adminFindVenuesFlags.stateCode)
 	}
 	if cmd.Flags().Changed("country-code") {
-		req.QueryParams["countryCode"] = fmt.Sprintf("%v", v2FindVenuesFlags.countryCode)
+		req.QueryParams["countryCode"] = fmt.Sprintf("%v", adminFindVenuesFlags.countryCode)
 	}
 	if cmd.Flags().Changed("latlong") {
-		req.QueryParams["latlong"] = fmt.Sprintf("%v", v2FindVenuesFlags.latlong)
+		req.QueryParams["latlong"] = fmt.Sprintf("%v", adminFindVenuesFlags.latlong)
 	}
 	if cmd.Flags().Changed("radius") {
-		req.QueryParams["radius"] = fmt.Sprintf("%v", v2FindVenuesFlags.radius)
+		req.QueryParams["radius"] = fmt.Sprintf("%v", adminFindVenuesFlags.radius)
 	}
 	if cmd.Flags().Changed("unit") {
-		req.QueryParams["unit"] = fmt.Sprintf("%v", v2FindVenuesFlags.unit)
+		req.QueryParams["unit"] = fmt.Sprintf("%v", adminFindVenuesFlags.unit)
 	}
 	if cmd.Flags().Changed("geo-point") {
-		req.QueryParams["geoPoint"] = fmt.Sprintf("%v", v2FindVenuesFlags.geoPoint)
+		req.QueryParams["geoPoint"] = fmt.Sprintf("%v", adminFindVenuesFlags.geoPoint)
 	}
 	if cmd.Flags().Changed("keyword") {
-		req.QueryParams["keyword"] = fmt.Sprintf("%v", v2FindVenuesFlags.keyword)
+		req.QueryParams["keyword"] = fmt.Sprintf("%v", adminFindVenuesFlags.keyword)
 	}
 	if cmd.Flags().Changed("id") {
-		req.QueryParams["id"] = fmt.Sprintf("%v", v2FindVenuesFlags.id)
+		req.QueryParams["id"] = fmt.Sprintf("%v", adminFindVenuesFlags.id)
 	}
 	if cmd.Flags().Changed("source") {
-		req.QueryParams["source"] = fmt.Sprintf("%v", v2FindVenuesFlags.source)
+		req.QueryParams["source"] = fmt.Sprintf("%v", adminFindVenuesFlags.source)
 	}
 	if cmd.Flags().Changed("include-test") {
-		req.QueryParams["includeTest"] = fmt.Sprintf("%v", v2FindVenuesFlags.includeTest)
+		req.QueryParams["includeTest"] = fmt.Sprintf("%v", adminFindVenuesFlags.includeTest)
 	}
 	if cmd.Flags().Changed("page") {
-		req.QueryParams["page"] = fmt.Sprintf("%v", v2FindVenuesFlags.page)
+		req.QueryParams["page"] = fmt.Sprintf("%v", adminFindVenuesFlags.page)
 	}
 	if cmd.Flags().Changed("size") {
-		req.QueryParams["size"] = fmt.Sprintf("%v", v2FindVenuesFlags.size)
+		req.QueryParams["size"] = fmt.Sprintf("%v", adminFindVenuesFlags.size)
 	}
 	if cmd.Flags().Changed("locale") {
-		req.QueryParams["locale"] = fmt.Sprintf("%v", v2FindVenuesFlags.locale)
+		req.QueryParams["locale"] = fmt.Sprintf("%v", adminFindVenuesFlags.locale)
 	}
 	if cmd.Flags().Changed("include-licensed-content") {
-		req.QueryParams["includeLicensedContent"] = fmt.Sprintf("%v", v2FindVenuesFlags.includeLicensedContent)
+		req.QueryParams["includeLicensedContent"] = fmt.Sprintf("%v", adminFindVenuesFlags.includeLicensedContent)
 	}
 	if cmd.Flags().Changed("include-spellcheck") {
-		req.QueryParams["includeSpellcheck"] = fmt.Sprintf("%v", v2FindVenuesFlags.includeSpellcheck)
+		req.QueryParams["includeSpellcheck"] = fmt.Sprintf("%v", adminFindVenuesFlags.includeSpellcheck)
 	}
 
 	// Header parameters

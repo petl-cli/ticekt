@@ -1,7 +1,7 @@
 cli:
   name: discovery-api
   env_prefix: DISCOVERY_API
-  version: 0.1.0
+  version: 0.1.1
 environments:
   production: https://app.ticketmaster.com
 security_schemes:
@@ -29,5 +29,7 @@ resources:
       get-event-details: get /discovery/v2/events/{id}
       get-event-images: get /discovery/v2/events/{id}/images
       find-suggest: get /discovery/v2/suggest
-      find-venues: get /discovery/v2/venues
       get-venue-details: get /discovery/v2/venues/{id}
+  admin:
+    methods:
+      find-venues: get /discovery/v2/venues
