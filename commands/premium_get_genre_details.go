@@ -10,28 +10,28 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var v2GetGenreDetailsCmd = &cobra.Command{
+var premiumGetGenreDetailsCmd = &cobra.Command{
 	Use:   "get-genre-details",
 	Short: "Get Genre Details",
-	RunE:  withTelemetry(runV2GetGenreDetails),
+	RunE:  withTelemetry(runPremiumGetGenreDetails),
 }
 
-var v2GetGenreDetailsFlags struct {
+var premiumGetGenreDetailsFlags struct {
 	id                     string
 	locale                 string
 	includeLicensedContent string
 }
 
 func init() {
-	v2GetGenreDetailsCmd.Flags().StringVar(&v2GetGenreDetailsFlags.id, "id", "", "ID of the genre")
-	v2GetGenreDetailsCmd.MarkFlagRequired("id")
-	v2GetGenreDetailsCmd.Flags().StringVar(&v2GetGenreDetailsFlags.locale, "locale", "", "The locale in ISO code format. Multiple comma-separated values can be provided. When omitting the country part of the code (e.g. only 'en' or 'fr') then the first matching locale is used. When using a '*' it matches all locales. '*' can only be used at the end (e.g. 'en-us,en,*') ")
-	v2GetGenreDetailsCmd.Flags().StringVar(&v2GetGenreDetailsFlags.includeLicensedContent, "include-licensed-content", "", "True if you want to display licensed content")
+	premiumGetGenreDetailsCmd.Flags().StringVar(&premiumGetGenreDetailsFlags.id, "id", "", "ID of the genre")
+	premiumGetGenreDetailsCmd.MarkFlagRequired("id")
+	premiumGetGenreDetailsCmd.Flags().StringVar(&premiumGetGenreDetailsFlags.locale, "locale", "", "The locale in ISO code format. Multiple comma-separated values can be provided. When omitting the country part of the code (e.g. only 'en' or 'fr') then the first matching locale is used. When using a '*' it matches all locales. '*' can only be used at the end (e.g. 'en-us,en,*') ")
+	premiumGetGenreDetailsCmd.Flags().StringVar(&premiumGetGenreDetailsFlags.includeLicensedContent, "include-licensed-content", "", "True if you want to display licensed content")
 
-	v2Cmd.AddCommand(v2GetGenreDetailsCmd)
+	premiumCmd.AddCommand(premiumGetGenreDetailsCmd)
 }
 
-func runV2GetGenreDetails(cmd *cobra.Command, args []string) error {
+func runPremiumGetGenreDetails(cmd *cobra.Command, args []string) error {
 	// --schema: print full input/output type contract without making any network call.
 	if rootFlags.schema {
 		type flagSchema struct {
@@ -121,7 +121,7 @@ func runV2GetGenreDetails(cmd *cobra.Command, args []string) error {
 
 	// Build path params
 	pathParams := map[string]string{}
-	pathParams["id"] = fmt.Sprintf("%v", v2GetGenreDetailsFlags.id)
+	pathParams["id"] = fmt.Sprintf("%v", premiumGetGenreDetailsFlags.id)
 
 	req := &httpclient.Request{
 		Method:      "GET",
@@ -133,10 +133,10 @@ func runV2GetGenreDetails(cmd *cobra.Command, args []string) error {
 
 	// Query parameters
 	if cmd.Flags().Changed("locale") {
-		req.QueryParams["locale"] = fmt.Sprintf("%v", v2GetGenreDetailsFlags.locale)
+		req.QueryParams["locale"] = fmt.Sprintf("%v", premiumGetGenreDetailsFlags.locale)
 	}
 	if cmd.Flags().Changed("include-licensed-content") {
-		req.QueryParams["includeLicensedContent"] = fmt.Sprintf("%v", v2GetGenreDetailsFlags.includeLicensedContent)
+		req.QueryParams["includeLicensedContent"] = fmt.Sprintf("%v", premiumGetGenreDetailsFlags.includeLicensedContent)
 	}
 
 	// Header parameters

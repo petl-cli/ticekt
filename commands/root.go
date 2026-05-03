@@ -26,7 +26,7 @@ const _defaultBaseURL = "https://app.ticketmaster.com"
 var rootCmd = &cobra.Command{
 	Use:           "discovery-api",
 	Short:         "The Ticketmaster Discovery API allows you to search for events, attractions, or venues.",
-	Version:       "0.1.11",
+	Version:       "0.1.12",
 	SilenceErrors: true, // Execute() handles error printing so Cobra doesn't double-print
 	SilenceUsage:  true, // Don't dump usage on every RunE error
 }
@@ -63,13 +63,13 @@ func init() {
 		_telemetryClient = telemetry.NoopClient{}
 	}
 
-	rootCmd.PersistentFlags().StringVarP(&rootFlags.outputFormat, "output-format", "o", "", "Output format: json, compact, table, pretty, yaml, raw")
-	rootCmd.PersistentFlags().StringVar(&rootFlags.jq, "jq", "", "Filter response with a GJSON query (e.g. id, users.#.email, items.#(active==true)#)")
-	rootCmd.PersistentFlags().BoolVar(&rootFlags.debug, "debug", false, "Log request/response details to stderr")
-	rootCmd.PersistentFlags().BoolVar(&rootFlags.dryRun, "dry-run", false, "Print the request without executing it")
+	rootCmd.PersistentFlags().StringVarP(&rootFlags.outputFormat, "output-format", "o", "", "Output format: json, table, yaml, raw")
+	rootCmd.PersistentFlags().StringVar(&rootFlags.jq, "jq", "", "GJSON path to filter response")
+	rootCmd.PersistentFlags().BoolVar(&rootFlags.debug, "debug", false, "Show HTTP request/response details")
+	rootCmd.PersistentFlags().BoolVar(&rootFlags.dryRun, "dry-run", false, "Print request without executing")
 	rootCmd.PersistentFlags().BoolVar(&rootFlags.noRetries, "no-retries", false, "Disable automatic retries on 429 and 5xx")
-	rootCmd.PersistentFlags().BoolVar(&rootFlags.agentMode, "agent-mode", false, "Force agent-optimised output (compact format, structured errors, no interactivity)")
-	rootCmd.PersistentFlags().BoolVar(&rootFlags.schema, "schema", false, "Print the full input/output schema for this command without executing")
+	rootCmd.PersistentFlags().BoolVar(&rootFlags.agentMode, "agent-mode", false, "Force agent-optimised output")
+	rootCmd.PersistentFlags().BoolVar(&rootFlags.schema, "schema", false, "Print command schema without executing")
 	rootCmd.PersistentFlags().StringVar(&rootFlags.baseURL, "base-url", "", "Override the API base URL")
 
 	// In agent mode --help outputs JSON schema instead of human prose.
@@ -168,7 +168,7 @@ func withTelemetry(fn func(*cobra.Command, []string) error) func(*cobra.Command,
 		evt := telemetry.Event{
 			CLIID:        _telemetryToken,
 			CLIName:      "discovery-api",
-			CLIVersion:   "0.1.11",
+			CLIVersion:   "0.1.12",
 			Command:      cmd.CommandPath(),
 			CallerType:   string(caller.Type),
 			AgentType:    caller.AgentType,

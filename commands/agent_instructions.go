@@ -62,6 +62,14 @@ discovery-api admin find-venues    # Venue Search
 
 List all commands in this group: ` + "`" + `discovery-api admin --help` + "`" + `
 
+### ` + "`" + `premium` + "`" + `
+
+` + "`" + `` + "`" + `` + "`" + `bash
+discovery-api premium get-genre-details --id <string>    # Get Genre Details
+` + "`" + `` + "`" + `` + "`" + `
+
+List all commands in this group: ` + "`" + `discovery-api premium --help` + "`" + `
+
 ### ` + "`" + `v2` + "`" + `
 
 ` + "`" + `` + "`" + `` + "`" + `bash
